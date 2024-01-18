@@ -1,0 +1,32 @@
+// 1. Basic Statistic Segmentation Pattern
+StatSegmentation = 
+VAR CurrentValue = [Sales Amount]  // Specify the numerical column for segmentation
+RETURN
+CALCULATE (
+    VALUES('Price Ranges'[Range]),  // Specify the column containing the price ranges
+    FILTER (
+        'Price Ranges',
+        CurrentValue >= 'Price Ranges'[Min]  // Define the condition for each range
+            && CurrentValue <= 'Price Ranges'[Max]
+    )
+)
+
+// 2. Price Ranges by Category
+PriceRangesByCategory = 
+SUMMARIZECOLUMNS (
+    'Products'[Category],  // Specify the category column
+    "Total Sales",          // Measure for total sales
+    [Total Sales],          // Replace with the actual measure for total sales
+    "Segmentation",         // Measure for segmentation
+    StatSegmentation         // Use the StatSegmentation measure
+)
+
+// 3. Price Ranges on Large Tables
+LargeTablePriceRanges = 
+SUMMARIZECOLUMNS (
+    'LargeTable'[ID],       // Specify the key column of the large table
+    "Total Sales",          // Measure for total sales
+    [Total Sales],          // Replace with the actual measure for total sales
+    "Segmentation",         // Measure for segmentation
+    StatSegmentation         // Use the StatSegmentation measure
+)
