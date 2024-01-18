@@ -1,0 +1,49 @@
+// 1. Computing Period-to-Date Totals
+
+PeriodToDateTotalWeek = 
+CALCULATE (
+    [Total Sales],
+    DATESMTD('Dates'[Date])
+)
+
+// 2. Computing Period-Over-Period Growth
+
+PeriodOverPeriodGrowthWeek = 
+DIVIDE (
+    [Total Sales] - CALCULATE (
+        [Total Sales],
+        PREVIOUSWEEK('Dates'[Date])
+    ),
+    CALCULATE (
+        [Total Sales],
+        PREVIOUSWEEK('Dates'[Date])
+    )
+)
+
+// 3. Computing Period-to-Date Growth
+
+PeriodToDateGrowthWeek = 
+DIVIDE (
+    [Total Sales] - CALCULATE (
+        [Total Sales],
+        STARTOFWEEK(PREVIOUSWEEK('Dates'[Date]))
+    ),
+    CALCULATE (
+        [Total Sales],
+        STARTOFWEEK(PREVIOUSWEEK('Dates'[Date]))
+    )
+)
+
+// 4. Comparing Period-to-Date with Previous Full Period
+
+PeriodToDateWithPreviousFullPeriodWeek = 
+CALCULATE (
+    [Total Sales],
+    DATESMTD(
+        IF (
+            MAX('Dates'[Date]) = MAX('Dates'[Last Date of Quarter]),
+            MAX('Dates'[Last Date of Quarter]),
+            MAX('Dates'[Date])
+        )
+    )
+)
