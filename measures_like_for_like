@@ -1,0 +1,10 @@
+// 1. Like-for-Like Comparison Pattern
+LikeForLikeComparison = 
+CALCULATE (
+    [Sales],  // Original sales measure to be compared
+    FILTER (
+        ALL('StoresTable'),  // Consider all stores without any filter
+        COUNTROWS(FILTER('StoresTable', 'StoresTable'[OpenDate] <= MIN('DateTable'[Date]) && 'StoresTable'[CloseDate] >= MAX('DateTable'[Date]))) = COUNTROWS(ALL('DateTable'))
+        // Filter stores that were open in all the periods considered
+    )
+)
