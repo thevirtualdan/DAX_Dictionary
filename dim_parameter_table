@@ -1,0 +1,19 @@
+// In this example, the DATATABLE function is used to create a table with two columns: "ParameterName" and "ParameterValue." You can customize the table by adding more parameters with their corresponding values.
+
+// Here's how to interpret the pattern:
+
+// ParameterName: This column stores the names of the parameters. It is of the STRING data type.
+// ParameterValue: This column stores the values associated with each parameter. It is of the VARIANT data type, allowing it to store different data types such as numbers, strings, booleans, etc.
+// You can expand or modify this pattern based on your specific parameters and their types. This table can be used in calculations or as slicers in your Power BI reports, providing a centralized place to manage and update parameters.
+
+ParameterTable = 
+DATATABLE (
+    "ParameterName", STRING,
+    "ParameterValue", VARIANT,
+    {
+        {"Parameter1", 10},
+        {"Parameter2", "Value2"},
+        {"Parameter3", TRUE}
+        -- Add more parameters as needed
+    }
+)
