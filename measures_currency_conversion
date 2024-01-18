@@ -1,0 +1,29 @@
+// 1. Multiple Source Currencies, Single Reporting Currency
+MultipleSourceCurrenciesSingleReporting = 
+CALCULATE (
+    SUMX (
+        'Transactions',
+        'Transactions'[Amount] * RELATED('Exchange Rates'[Exchange Rate])
+    ),
+    USERELATIONSHIP('Transactions'[Transaction Date], 'Exchange Rates'[Date])  // Use specific relationship for conversion
+)
+
+// 2. Single Source Currency, Multiple Reporting Currencies
+SingleSourceCurrencyMultipleReporting = 
+CALCULATE (
+    SUMX (
+        'Transactions',
+        'Transactions'[Amount] * RELATED('Exchange Rates'[Exchange Rate])
+    ),
+    USERELATIONSHIP('Transactions'[Transaction Date], 'Exchange Rates'[Date])  // Use specific relationship for conversion
+)
+
+// 3. Multiple Source Currencies, Multiple Reporting Currencies
+MultipleSourceCurrenciesMultipleReporting = 
+CALCULATE (
+    SUMX (
+        'Transactions',
+        'Transactions'[Amount] * RELATED('Exchange Rates'[Exchange Rate])
+    ),
+    USERELATIONSHIP('Transactions'[Transaction Date], 'Exchange Rates'[Date])  // Use specific relationship for conversion
+)
