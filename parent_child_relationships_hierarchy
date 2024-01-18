@@ -1,0 +1,28 @@
+// 1. Basic Parent-Child Pattern
+BasicParentChildPattern = 
+PATH (
+    'ParentChildTable'[ChildID], 
+    'ParentChildTable'[ParentID]
+)
+
+// 2. Calculations over the Hierarchy
+CalculationsOverHierarchy = 
+SUMX (
+    'ParentChildTable',
+    'ParentChildTable'[Value] * PATHCONTAINS(BasicParentChildPattern, 'ParentChildTable'[ChildID], 'ParentChildTable'[Value])
+)
+
+// 3. Chart of Accounts Hierarchy
+ChartOfAccountsHierarchy = 
+SUMX (
+    'ChartOfAccountsTable',
+    'ChartOfAccountsTable'[Amount] * PATHCONTAINS('ChartOfAccountsTable'[AccountPath], 'ChartOfAccountsTable'[AccountID], 'ChartOfAccountsTable'[Amount])
+)
+
+// 4. Security Pattern for a Parent-Child Hierarchy
+SecurityPatternParentChildHierarchy = 
+IF (
+    USERNAME() = RELATED('SecurityTable'[UserName]),
+    'ParentChildTable'[SensitiveData],
+    BLANK()
+)
