@@ -1,0 +1,32 @@
+// 1. Events in Progress Pattern
+EventsInProgress = 
+CALCULATE (
+    COUNTROWS('EventsTable'),  
+    'EventsTable'[StartDate] <= TODAY() && 'EventsTable'[EndDate] >= TODAY()  
+)
+
+// 2. Measure for Event Progress
+EventProgress = 
+IF (
+    [EventsInProgress] > 0,
+    DIVIDE(
+        TODAY() - 'EventsTable'[StartDate],
+        'EventsTable'[EndDate] - 'EventsTable'[StartDate]
+    ),
+    BLANK()
+)
+
+// 3. Gantt Chart Calculated Columns
+GanttChart_StartDate = 
+IF (
+    [EventsInProgress] > 0,
+    'EventsTable'[StartDate],
+    BLANK()
+)
+
+GanttChart_EndDate = 
+IF (
+    [EventsInProgress] > 0,
+    'EventsTable'[EndDate],
+    BLANK()
+)
