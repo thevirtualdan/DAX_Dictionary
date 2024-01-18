@@ -1,0 +1,14 @@
+// 1. Cumulative Total Table Pattern
+CumulativeTotalTable = 
+SUMMARIZECOLUMNS (
+    'Transactions'[ProductID],  // 2. Specify the relevant key column
+    'Dates'[Date],              // 3. Specify the date column for grouping
+    "Cumulative Total",         // 4. Name the new column
+    CALCULATE (
+        SUM('Transactions'[Quantity]),  // 5. Specify the column to accumulate
+        FILTER (
+            ALL('Dates'),
+            'Dates'[Date] <= EARLIER('Dates'[Date])  // 6. Filter dates up to the current date
+        )
+    )
+)
