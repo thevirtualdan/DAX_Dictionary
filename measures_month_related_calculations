@@ -1,0 +1,70 @@
+// Period-to-Date Totals
+PeriodToDateTotal = 
+CALCULATE (
+    [Total Sales],
+    DATESMTD('Dates'[Date])
+)
+
+// Period-Over-Period Growth
+PeriodOverPeriodGrowth = 
+DIVIDE (
+    [Total Sales] - CALCULATE (
+        [Total Sales],
+        PREVIOUSMONTH('Dates'[Date])
+    ),
+    CALCULATE (
+        [Total Sales],
+        PREVIOUSMONTH('Dates'[Date])
+    )
+)
+
+// Period-to-Date Growth
+PeriodToDateGrowth = 
+DIVIDE (
+    [Total Sales] - CALCULATE (
+        [Total Sales],
+        STARTOFMONTH(PREVIOUSMONTH('Dates'[Date]))
+    ),
+    CALCULATE (
+        [Total Sales],
+        STARTOFMONTH(PREVIOUSMONTH('Dates'[Date]))
+    )
+)
+
+// Period-to-Date with a Previous Full Period
+PeriodToDateWithPreviousFullPeriod = 
+CALCULATE (
+    [Total Sales],
+    DATESMTD(
+        IF (
+            MAX('Dates'[Date]) = MAX('Dates'[Last Date of Quarter]),
+            MAX('Dates'[Last Date of Quarter]),
+            MAX('Dates'[Date])
+        )
+    )
+)
+
+// Moving Annual Total Calculations
+MovingAnnualTotal = 
+CALCULATE (
+    [Total Sales],
+    DATESINPERIOD('Dates'[Date], LASTDATE('Dates'[Date]), -12, MONTH)
+)
+
+// Moving Averages
+MovingAverage = 
+CALCULATE (
+    [Total Sales],
+    AVERAGEX (
+        DATESINPERIOD('Dates'[Date], LASTDATE('Dates'[Date]), -12, MONTH),
+        [Total Sales]
+    )
+)
+
+// Managing Years with More Than 12 Months
+TotalSalesWithLeapYear = 
+CALCULATE (
+    [Total Sales],
+    ALL('Dates'),
+    'Dates'[Is Leap Year] = TRUE
+)
