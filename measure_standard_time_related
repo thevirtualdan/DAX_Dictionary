@@ -1,39 +1,186 @@
 // 1. YTD (Year-to-Date) Calculation:
 
+Total Sales = 
+SUM('Sales'[Amount])
+
 // 2. Rolling 12 Months Calculation:
+
+YTD Sales = 
+CALCULATE (
+    [Total Sales],
+    DATESYTD('Dates'[Date])
+)
 
 // 3. MTD (Month-to-Date) Calculation:
 
+MTD Sales = 
+CALCULATE (
+    [Total Sales],
+    DATESMTD('Dates'[Date])
+)
+
 // 4. QTD (Quarter-to-Date) Sales:
+
+QTD Sales = 
+CALCULATE (
+    [Total Sales],
+    DATESQTD('Dates'[Date])
+)
 
 // 5. Rolling 3 Months Sales:
 
+Rolling 3 Months Sales = 
+CALCULATE (
+    [Total Sales],
+    DATESINPERIOD('Dates'[Date], LASTDATE('Dates'[Date]), -3, MONTH)
+)
+
 // 6. Average Sales per Day:
+
+Avg Sales per Day = 
+DIVIDE (
+    [Total Sales],
+    COUNTROWS('Dates')
+)
 
 // 7. Running Total:
 
+Running Total Sales = 
+CALCULATE (
+    [Total Sales],
+    FILTER (
+        ALL('Dates'),
+        'Dates'[Date] <= MAX('Dates'[Date])
+    )
+)
+
 // 8. Year-over-Year Growth:
+
+YoY Growth = 
+DIVIDE (
+    [Total Sales] - CALCULATE (
+        [Total Sales],
+        SAMEPERIODLASTYEAR('Dates'[Date])
+    ),
+    CALCULATE (
+        [Total Sales],
+        SAMEPERIODLASTYEAR('Dates'[Date])
+    )
+)
 
 // 9. Month-over-Month Growth:
 
+MoM Growth = 
+DIVIDE (
+    [Total Sales] - CALCULATE (
+        [Total Sales],
+        SAMEPERIODLASTMONTH('Dates'[Date])
+    ),
+    CALCULATE (
+        [Total Sales],
+        SAMEPERIODLASTMONTH('Dates'[Date])
+    )
+)
+
 // 10. Average Sales per Month:
+
+Avg Sales per Month = 
+CALCULATE (
+    [Total Sales],
+    ALLEXCEPT('Dates', 'Dates'[Month Year])
+)
  
 // 11. Cumulative Percentage of Total Sales:
 
+Cumulative % of Total Sales = 
+SUMX (
+    FILTER (
+        ALL('Dates'),
+        'Dates'[Date] <= MAX('Dates'[Date])
+    ),
+    [Total Sales]
+) / [Total Sales]
+
 // 12. First and Last Date in the Dataset:
+
+First Date = 
+MIN('Dates'[Date])
+
+Last Date = 
+MAX('Dates'[Date])
 
 // 13. Number of Working Days in the Current Month:
 
+Working Days = 
+CALCULATE (
+    COUNTROWS('Dates'),
+    'Dates'[Is Workday] = TRUE,
+    'Dates'[Is Current Month] = TRUE
+)
+
 // 14. Number of Weekends in the Current Quarter:
+
+Weekends = 
+CALCULATE (
+    COUNTROWS('Dates'),
+    'Dates'[Is Weekend] = TRUE,
+    'Dates'[Quarter Year] = VALUES('Dates'[Quarter Year])
+)
 
 // 15. Days Between Two Dates:
 
+Days Between = 
+DATEDIFF(MIN('Dates'[Date]), MAX('Dates'[Date]), DAY)
+
 // 16. Next N Days Sales Forecast:
+
+Next 7 Days Forecast = 
+CALCULATE (
+    [Total Sales],
+    FILTER (
+        'Dates',
+        'Dates'[Date] > TODAY() && 'Dates'[Date] <= TODAY() + 7
+    )
+)
 
 // 17. Date of the Nth Day of the Month:
 
+Nth Day of Month = 
+CALCULATE (
+    MIN('Dates'[Date]),
+    'Dates'[Day] = 15
+)
+
 // 18. Days Since the Last Sale:
+
+Days Since Last Sale = 
+DATEDIFF(
+    CALCULATE(MAX('Dates'[Date]), ALL('Sales')),
+    MAX('Dates'[Date]),
+    DAY
+)
 
 // 19. First and Last Date of Each Quarter:
 
+First Date of Quarter = 
+CALCULATE (
+    MIN('Dates'[Date]),
+    'Dates'[Quarter Year] = VALUES('Dates'[Quarter Year])
+)
+
+Last Date of Quarter = 
+CALCULATE (
+    MAX('Dates'[Date]),
+    'Dates'[Quarter Year] = VALUES('Dates'[Quarter Year])
+)
+
 // 20. Periodic Growth Rate:
+
+Periodic Growth Rate = 
+DIVIDE (
+    [Total Sales],
+    CALCULATE (
+        [Total Sales],
+        PREVIOUSMONTH('Dates'[Date])
+    )
+) - 1
