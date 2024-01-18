@@ -1,0 +1,34 @@
+// 1. Static Rankings
+StaticRankings = 
+RANKX (
+    ALL('SalesTable'[Product]), 
+    [TotalSales], 
+    , 
+    DESC, 
+    Dense
+)
+
+// 2. Dynamic Ranking
+DynamicRanking = 
+RANKX (
+    FILTER (
+        ALLSELECTED('SalesTable'[Year]), 
+        NOT(ISBLANK([TotalSales]))
+    ),
+    [TotalSales], 
+    , 
+    DESC, 
+    Dense
+)
+
+// 3. Showing Top X Items by Category
+TopXItemsByCategory = 
+CALCULATETABLE (
+    VALUES('SalesTable'[Product]), 
+    TOPN (
+        5, 
+        VALUES('SalesTable'[Product]), 
+        [TotalSales], 
+        DESC
+    )
+)
