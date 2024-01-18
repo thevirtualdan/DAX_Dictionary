@@ -1,0 +1,25 @@
+// An easy create new table DAX for a dimension calendar table.
+
+dim_calendar = 
+ADDCOLUMNS (
+    CALENDAR (DATE(2020, 1, 1), DATE(2022, 12, 31)),
+    "Date", [Date],
+    "Year", YEAR([Date]),
+    "Month Number", MONTH([Date]),
+    "Month Name", FORMAT([Date], "MMMM"),
+    "Quarter", QUARTER([Date]),
+    "Weekday", WEEKDAY([Date]),
+    "Day", DAY([Date]),
+    "Day of Week", FORMAT([Date], "dddd"),
+    "Month Year", FORMAT([Date], "MMMM YYYY"),
+    "Quarter Year", "Q" & FORMAT([Date], "Q YYYY"),
+    "Is Weekend", IF( OR( WEEKDAY([Date]) = 1, WEEKDAY([Date]) = 7 ), TRUE(), FALSE() ),
+    "Is Workday", IF( AND( WEEKDAY([Date]) <> 1, WEEKDAY([Date]) <> 7 ), TRUE(), FALSE() ),
+    "Is Leap Year", IF( OR( 
+        MOD([Year], 4) = 0, 
+        AND( MOD([Year], 100) = 0, MOD([Year], 400) = 0 ) 
+    ), TRUE(), FALSE() ),
+    "Is Current Month", IF( [Month Number] = MONTH(TODAY()), TRUE(), FALSE() ),
+    "Is Future Date", IF( [Date] > TODAY(), TRUE(), FALSE() ),
+    "Is Past Date", IF( [Date] < TODAY(), TRUE(), FALSE() )
+)
