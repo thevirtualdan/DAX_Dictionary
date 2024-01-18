@@ -1,0 +1,57 @@
+// 1. Computing Period-to-Date Totals for 24-Hour Workday
+
+PeriodToDateTotalTime = 
+CALCULATE (
+    [Total Sales],
+    DATESMTD('Dates'[Time])
+)
+
+// 2. Computing Period-Over-Period Growth for 24-Hour Workday
+
+PeriodOverPeriodGrowthTime = 
+DIVIDE (
+    [Total Sales] - CALCULATE (
+        [Total Sales],
+        PREVIOUSMONTH('Dates'[Time])
+    ),
+    CALCULATE (
+        [Total Sales],
+        PREVIOUSMONTH('Dates'[Time])
+    )
+)
+
+// 3. Computing Period-to-Date Growth for 24-Hour Workday
+
+PeriodToDateGrowthTime = 
+DIVIDE (
+    [Total Sales] - CALCULATE (
+        [Total Sales],
+        STARTOFMONTH(PREVIOUSMONTH('Dates'[Time]))
+    ),
+    CALCULATE (
+        [Total Sales],
+        STARTOFMONTH(PREVIOUSMONTH('Dates'[Time]))
+    )
+)
+
+// 4. Comparing Period-to-Date with a Previous Full Period for 24-Hour Workday
+
+PeriodToDateWithPreviousFullPeriodTime = 
+CALCULATE (
+    [Total Sales],
+    DATESMTD(
+        IF (
+            MAX('Dates'[Time]) = MAX('Dates'[Last Time of Quarter]),
+            MAX('Dates'[Last Time of Quarter]),
+            MAX('Dates'[Time])
+        )
+    )
+)
+
+// 5. Using Moving Annual Total Calculations for 24-Hour Workday
+
+MovingAnnualTotalTime = 
+CALCULATE (
+    [Total Sales],
+    DATESINPERIOD('Dates'[Time], LASTDATE('Dates'[Time]), -12, MONTH)
+)
