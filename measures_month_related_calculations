@@ -1,4 +1,4 @@
-// Period-to-Date Totals
+// 1. Period-to-Date Totals
 
 PeriodToDateTotal = 
 CALCULATE (
@@ -6,7 +6,7 @@ CALCULATE (
     DATESMTD('Dates'[Date])
 )
 
-// Period-Over-Period Growth
+// 2. Period-Over-Period Growth
 
 PeriodOverPeriodGrowth = 
 DIVIDE (
@@ -20,7 +20,7 @@ DIVIDE (
     )
 )
 
-// Period-to-Date Growth
+// 3. Period-to-Date Growth
 
 PeriodToDateGrowth = 
 DIVIDE (
@@ -34,7 +34,7 @@ DIVIDE (
     )
 )
 
-// Period-to-Date with a Previous Full Period
+// 4. Period-to-Date with a Previous Full Period
 
 PeriodToDateWithPreviousFullPeriod = 
 CALCULATE (
@@ -48,7 +48,7 @@ CALCULATE (
     )
 )
 
-// Moving Annual Total Calculations
+// 5. Moving Annual Total Calculations
 
 MovingAnnualTotal = 
 CALCULATE (
@@ -56,7 +56,7 @@ CALCULATE (
     DATESINPERIOD('Dates'[Date], LASTDATE('Dates'[Date]), -12, MONTH)
 )
 
-// Moving Averages
+// 6. Moving Averages
 
 MovingAverage = 
 CALCULATE (
@@ -67,7 +67,7 @@ CALCULATE (
     )
 )
 
-// Managing Leap Years
+// 7. Managing Leap Years
 
 TotalSalesWithLeapYear = 
 CALCULATE (
