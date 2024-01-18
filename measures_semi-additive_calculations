@@ -1,0 +1,64 @@
+// 1. First and Last Date
+FirstDate = 
+CALCULATE (
+    MIN('Dates'[Date])
+)
+
+LastDate = 
+CALCULATE (
+    MAX('Dates'[Date])
+)
+
+// 2. First and Last Date with Data
+FirstDateWithData = 
+CALCULATE (
+    MIN('Dates'[Date]),
+    NOT(ISBLANK([Total Sales]))
+)
+
+LastDateWithData = 
+CALCULATE (
+    MAX('Dates'[Date]),
+    NOT(ISBLANK([Total Sales]))
+)
+
+// 3. First and Last Date by Customer
+FirstDateByCustomer = 
+CALCULATE (
+    MIN('Dates'[Date]),
+    NOT(ISBLANK([Total Sales])),
+    ALLEXCEPT('Customers', 'Customers'[CustomerID])
+)
+
+LastDateByCustomer = 
+CALCULATE (
+    MAX('Dates'[Date]),
+    NOT(ISBLANK([Total Sales])),
+    ALLEXCEPT('Customers', 'Customers'[CustomerID])
+)
+
+// 4. Opening and Closing Balance
+OpeningBalance = 
+CALCULATE (
+    [Total Sales],
+    FIRSTDATE('Dates'[Date])
+)
+
+ClosingBalance = 
+CALCULATE (
+    [Total Sales],
+    LASTDATE('Dates'[Date])
+)
+
+// 5. Growth in Period
+GrowthInPeriod = 
+DIVIDE (
+    [Total Sales] - CALCULATE (
+        [Total Sales],
+        PREVIOUSMONTH('Dates'[Date])
+    ),
+    CALCULATE (
+        [Total Sales],
+        PREVIOUSMONTH('Dates'[Date])
+    )
+)
