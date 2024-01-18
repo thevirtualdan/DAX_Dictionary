@@ -1,4 +1,5 @@
 // Period-to-Date Totals
+
 PeriodToDateTotal = 
 CALCULATE (
     [Total Sales],
@@ -6,6 +7,7 @@ CALCULATE (
 )
 
 // Period-Over-Period Growth
+
 PeriodOverPeriodGrowth = 
 DIVIDE (
     [Total Sales] - CALCULATE (
@@ -19,6 +21,7 @@ DIVIDE (
 )
 
 // Period-to-Date Growth
+
 PeriodToDateGrowth = 
 DIVIDE (
     [Total Sales] - CALCULATE (
@@ -32,6 +35,7 @@ DIVIDE (
 )
 
 // Period-to-Date with a Previous Full Period
+
 PeriodToDateWithPreviousFullPeriod = 
 CALCULATE (
     [Total Sales],
@@ -45,6 +49,7 @@ CALCULATE (
 )
 
 // Moving Annual Total Calculations
+
 MovingAnnualTotal = 
 CALCULATE (
     [Total Sales],
@@ -52,6 +57,7 @@ CALCULATE (
 )
 
 // Moving Averages
+
 MovingAverage = 
 CALCULATE (
     [Total Sales],
@@ -61,7 +67,8 @@ CALCULATE (
     )
 )
 
-// Managing Years with More Than 12 Months
+// Managing Leap Years
+
 TotalSalesWithLeapYear = 
 CALCULATE (
     [Total Sales],
