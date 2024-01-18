@@ -1,0 +1,18 @@
+// Detecting the Current Level of a Hierarchy
+CurrentHierarchyLevel = 
+VAR CurrentLevel =
+    SELECTEDVALUE('Product Hierarchy'[Hierarchy Level])  // Retrieve the selected hierarchy level for the current row
+RETURN
+    CurrentLevel
+
+// % of Parent Measure Example
+PercentageOfParent = 
+VAR CurrentLevel = [CurrentHierarchyLevel]  // Retrieve the current hierarchy level using the previously defined measure
+RETURN
+    SWITCH (
+        CurrentLevel,
+        "Category", [Sales] / CALCULATE([Sales], ALL('Product Hierarchy'[Category])),  // Calculate % of Parent for Category level
+        "Subcategory", [Sales] / CALCULATE([Sales], ALL('Product Hierarchy'[Subcategory])),  // Calculate % of Parent for Subcategory level
+        "Product Name", [Sales] / CALCULATE([Sales], ALL('Product Hierarchy'[Product Name])),  // Calculate % of Parent for Product Name level
+        BLANK()  // Return blank for unknown or unexpected hierarchy level
+    )
