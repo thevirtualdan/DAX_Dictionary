@@ -1,0 +1,20 @@
+// 1. Forecast Allocation
+ForecastAllocation = 
+CALCULATE (
+    [Forecast Amount],
+    USERELATIONSHIP('Dates'[Date], 'Forecast Dates'[Date])  // Use a specific relationship for forecasting
+)
+
+// 2. Using the Forecast Measure
+UsingForecastMeasure = 
+SUMX (
+    VALUES('Products'[Product]),
+    [Forecast Allocation]
+)
+
+// 3. Showing Actuals and Forecasts on the Same Chart
+ShowActualsAndForecasts = 
+SUMX (
+    VALUES('Dates'[Date]),
+    [Actual Amount] + [Forecast Allocation]  // Combine actuals and forecasts for charting
+)
