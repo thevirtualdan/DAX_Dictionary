@@ -1,4 +1,5 @@
 // 1. Cumulative Total Table Pattern
+
 CumulativeTotalTable = 
 SUMMARIZECOLUMNS (
     'Transactions'[ProductID],  // 2. Specify the relevant key column
