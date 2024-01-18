@@ -1,0 +1,46 @@
+// 1. Static ABC Classification
+StaticABCClassification = 
+VAR TotalSales = [Total Sales]  // Specify the total sales measure
+RETURN
+CALCULATE (
+    SWITCH (
+        TRUE(),
+        TotalSales >= [Total Sales Threshold A], "A",  // Define thresholds for each class
+        TotalSales >= [Total Sales Threshold B], "B",
+        "C"
+    )
+)
+
+// 2. Snapshot ABC Classification
+SnapshotABCClassification = 
+VAR TotalSalesSnapshot = [Total Sales Snapshot]  // Specify the total sales snapshot measure
+RETURN
+CALCULATE (
+    SWITCH (
+        TRUE(),
+        TotalSalesSnapshot >= [Total Sales Threshold A], "A",  // Define thresholds for each class
+        TotalSalesSnapshot >= [Total Sales Threshold B], "B",
+        "C"
+    )
+)
+
+// 3. Dynamic ABC Classification
+DynamicABCClassification = 
+VAR CurrentTotalSales = [Total Sales]  // Specify the current total sales measure
+VAR CurrentTotalSalesPercent = DIVIDE(CurrentTotalSales, [Total Sales All Products])  // Calculate percentage of current total sales
+RETURN
+CALCULATE (
+    SWITCH (
+        TRUE(),
+        CurrentTotalSalesPercent >= [Class A Percentage], "A",  // Define percentage thresholds for each class
+        CurrentTotalSalesPercent >= [Class B Percentage], "B",
+        "C"
+    )
+)
+
+// 4. Finding the ABC Class
+FindingABCClass = 
+CALCULATE (
+    VALUES('Products'[Product]),  // Specify the product column
+    'Products'[ABC Classification] = "A"  // Specify the class for filtering
+)
