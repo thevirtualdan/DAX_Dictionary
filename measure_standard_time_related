@@ -1,1 +1,39 @@
+// 1. YTD (Year-to-Date) Calculation:
 
+// 2. Rolling 12 Months Calculation:
+
+// 3. MTD (Month-to-Date) Calculation:
+
+// 4. QTD (Quarter-to-Date) Sales:
+
+// 5. Rolling 3 Months Sales:
+
+// 6. Average Sales per Day:
+
+// 7. Running Total:
+
+// 8. Year-over-Year Growth:
+
+// 9. Month-over-Month Growth:
+
+// 10. Average Sales per Month:
+ 
+// 11. Cumulative Percentage of Total Sales:
+
+// 12. First and Last Date in the Dataset:
+
+// 13. Number of Working Days in the Current Month:
+
+// 14. Number of Weekends in the Current Quarter:
+
+// 15. Days Between Two Dates:
+
+// 16. Next N Days Sales Forecast:
+
+// 17. Date of the Nth Day of the Month:
+
+// 18. Days Since the Last Sale:
+
+// 19. First and Last Date of Each Quarter:
+
+// 20. Periodic Growth Rate:
