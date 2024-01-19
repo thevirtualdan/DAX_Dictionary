@@ -1,4 +1,4 @@
-// 1. Static Rankings
+// 1. Static Rankings w/ examples
 StaticRankings = 
 RANKX (
     ALL('SalesTable'[Product]), 
@@ -8,7 +8,7 @@ RANKX (
     Dense
 )
 
-// 2. Dynamic Ranking
+// 2. Dynamic Ranking w/ examples
 DynamicRanking = 
 RANKX (
     FILTER (
@@ -21,7 +21,7 @@ RANKX (
     Dense
 )
 
-// 3. Showing Top X Items by Category
+// 3. Showing Top X Items by Category w/ examples
 TopXItemsByCategory = 
 CALCULATETABLE (
     VALUES('SalesTable'[Product]), 
