@@ -20,10 +20,6 @@ The **DAX Dictionary** is a resource for **business analysts, data professionals
 ✔ **Performance Optimization** – Efficient DAX writing techniques.  
 ✔ **Open-source & Community-driven** – Contributions welcome!  
 
-## 🚀 Contributing  
-
-Want to **add new measures** or improve existing ones? Check out our [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.  
-
 ## 📜 License  
 
 This repository is licensed under the **MIT License**, allowing for open use and contributions.  
